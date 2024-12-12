@@ -5,7 +5,7 @@ import time
 import datetime
 from getkeys import key_check
 import os
-
+//||
 o = [1,0,0,0,0,0,0,0,0]
 u = [0,1,0,0,0,0,0,0,0]
 q = [0,0,1,0,0,0,0,0,0]
