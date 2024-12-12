@@ -1,4 +1,65 @@
 # AI plays GTA
+The development of autonomous vehicles significantly relies on effective object detection systems, which enable cars to navigate complex environments. This project investigates the use of simulated microwave radar data in conjunction with convolutional neural networks (CNNs) to improve the reliability and efficiency of object detection in self-driving cars. By leveraging the immersive environment of Grand Theft Auto V (GTA V), we create a realistic scenario where CNNs can be trained to identify and classify various objects, such as pedestrians, vehicles, and road signs, within a dynamic urban landscape.
+
+We harness the capabilities of microwave radar technology, which captures valuable information regarding the distance and shape of objects, maintaining performance regardless of lighting or weather conditions. The simulated radar data generated from GTA V serves as a rich and versatile training dataset, allowing our CNN model to learn significant features pertinent to object detection tasks. This strategy enhances the model’s ability to recognize objects across diverse scenarios while ensuring its adaptability to real-world applications. Additionally, the utilization of simulated environments accelerates the training process, offering challenging datasets that are difficult to obtain in real life.
+
+Our project aims to rigorously test and validate this combined approach, showcasing its effectiveness in enhancing the safety and efficiency of self-driving vehicles. By achieving high accuracy in object detection, we contribute to the advancement of autonomous driving systems capable of interpreting their surroundings more effectively. This innovation paves the way for further exploration into the potential of simulated data and deep learning techniques in real-world applications.
+
+Contents:
+
+Record Data
+Dataset Browsing Apps
+Train Model
+The primary objective of this project is to develop a self-driving car in Grand Theft Auto V, as illustrated in the following example:
+
+gta-self-driving
+
+1. <a name="data"></a>Record Data
+Recording Display
+The first challenge is to record the display for playback and analysis, such as basic car detection:
+
+gta-car-detection
+
+Recording Controller Input
+We have two options for recording controller input:
+
+Fetch controller input directly
+Map commands to the keyboard
+ps4-keyboard-adapter
+
+The ps4_macro folder contains recordings and Python functions. The PS4_control.py file includes two functions to:
+
+Read XML controller files as a DataFrame.
+Save controller data as an Excel file.
+ps4_controller_table
+ps4_controller_LX_LY
+
+Use PyWin32 to record keyboard input.
+
+Note: Map key A to Q on French keyboards!
+
+2. <a name="apps"></a>Dataset Browsing Apps
+MATLAB Desktop App
+matlab_app
+
+Streamlit Web App
+streamlit_app.png
+
+3. <a name="train"></a>Train Model
+MATLAB Deep Learning Toolbox
+matlab_deep_learning
+
+TensorFlow
+Training occurs with a single epoch using training0.py.
+
+Running on an i7-6700HQ CPU @ 2.60GHz with 8GB RAM:
+
+21 steps took 6 minutes and 27 seconds.
+training0.png
+Training on NVIDIA GeForce GTX 960M yields:
+
+21 steps took 3 minutes and 40 seconds.
+92 steps took 17 minutes and 6 seconds.
 
 **Content:**
 1. [Record data](#data)
