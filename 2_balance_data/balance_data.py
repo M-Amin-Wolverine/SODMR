@@ -1,82 +1,84 @@
-#  balance_data.py
+import numpy as np  
+from random import shuffle  
+import os  
 
-import numpy as np
-# import pandas as pd
-# from collections import Counter
-from random import shuffle
-import os
+def load_training_data(dataset_folder):  
+    """Load and concatenate all training data from the specified folder."""  
+    files = os.listdir(dataset_folder)  
+    data = [np.load(os.path.join(dataset_folder, file), allow_pickle=True) for file in files]  
+    concatenated_data = np.concatenate(data)  
+    print("Loaded Training Data: ", concatenated_data.shape)  
+    return concatenated_data  
 
-training_dataset = "training_data_2021-02-16-1"
+def classify_data(train_data):  
+    """Classify data into different categories based on the output label."""  
+    classifications = {  
+        'Z': [],  
+        'S': [],  
+        'Q': [],  
+        'D': [],  
+        'ZQ': [],  
+        'ZD': [],  
+        'SQ': [],  
+        'SD': [],  
+        'NOKEY': []  
+    }  
 
-l = os.listdir("training_data/"+training_dataset)
+    for img, choice in train_data:  
+        if choice == [1, 0, 0, 0, 0, 0, 0, 0, 0]:  
+            classifications['Z'].append([img, choice])  
+        elif choice == [0, 1, 0, 0, 0, 0, 0, 0, 0]:  
+            classifications['S'].append([img, choice])  
+        elif choice == [0, 0, 1, 0, 0, 0, 0, 0, 0]:  
+            classifications['Q'].append([img, choice])  
+        elif choice == [0, 0, 0, 1, 0, 0, 0, 0, 0]:  
+            classifications['D'].append([img, choice])  
+        elif choice == [0, 0, 0, 0, 1, 0, 0, 0, 0]:  
+            classifications['ZQ'].append([img, choice])  
+        elif choice == [0, 0, 0, 0, 0, 1, 0, 0, 0]:  
+            classifications['ZD'].append([img, choice])  
+        elif choice == [0, 0, 0, 0, 0, 0, 1, 0, 0]:  
+            classifications['SQ'].append([img, choice])  
+        elif choice == [0, 0, 0, 0, 0, 0, 0, 1, 0]:  
+            classifications['SD'].append([img, choice])  
+        elif choice == [0, 0, 0, 0, 0, 0, 0, 0, 1]:  
+            classifications['NOKEY'].append([img, choice])  
 
-# training_dataset = "training_data_2021-02-15-1"
-# train_data = np.load("training_data/"+training_dataset+"/training_data-1.npy",allow_pickle=True)
+    return classifications  
 
-train_data = np.load("training_data/"+training_dataset+"/"+l[0],allow_pickle=True)
-for file in l[1:]:
-    load_data = np.load("training_data/"+training_dataset+"/"+file,allow_pickle=True)
-    train_data = np.concatenate((train_data,load_data))
+def balance_data(classifications):  
+    """Balance the dataset based on the least available class."""  
+    min_length = min(len(classifications['ZQ']), len(classifications['ZD']))  
 
-print ("Train Data: ", train_data.shape)
+    balanced_classes = {  
+        'Z': classifications['Z'][:min_length],  
+        'ZQ': classifications['ZQ'][:len(classifications['Z'])],  
+        'ZD': classifications['ZD'][:min_length],  
+        'NOKEY': classifications['NOKEY']  # Keep all NOKEY for training  
+    }  
+    
+    final_data = balanced_classes['Z'] + balanced_classes['ZQ'] + balanced_classes['ZD'] + balanced_classes['NOKEY']  
+    shuffle(final_data)  # Shuffle the combined data  
 
-# df = pd.DataFrame(train_data)
-# print(df.head())
-# print(Counter(df[1].apply(str)))
+    return final_data  
 
-'''
-Convert keys to a ...multi-hot... array
- 0  1  2  3  4   5   6   7    8
-[Z, S, Q, D, ZQ, ZD, SQ, SD, NOKEY] boolean values.
-A replaced by Q for french keyboard
-'''
+def save_balanced_data(final_data, dataset_folder):  
+    """Save the balanced training data to a .npy file."""  
+    np.save(os.path.join(dataset_folder, "-balanced.npy"), final_data)  
+    print("Balanced data saved.")  
 
-shuffle(train_data)
-z = []
-s = []
-q = []
-d = []
-zq = []
-zd = []
-sq = []
-sd = []
-nk = []
+def main():  
+    training_dataset = "training_data_2021-02-16-1"  
+    dataset_folder = os.path.join("training_data", training_dataset)  
 
-for data in train_data:
-    img = data[0]
-    choice = data[1]
+    train_data = load_training_data(dataset_folder)  
+    
+    shuffle(train_data)  # Shuffle the training data before processing  
+    classifications = classify_data(train_data)  
+    
+    final_data = balance_data(classifications)  
+    save_balanced_data(final_data, dataset_folder)  
 
-    if choice == [1,0,0,0,0,0,0,0,0]:
-        z.append([img,choice])
-    elif choice == [0,1,0,0,0,0,0,0,0]:
-        s.append([img,choice])
-    elif choice == [0,0,1,0,0,0,0,0,0]:
-        q.append([img,choice])
-    elif choice == [0,0,0,1,0,0,0,0,0]:
-        d.append([img,choice])
-    if choice == [0,0,0,0,1,0,0,0,0]:
-        zq.append([img,choice])
-    elif choice == [0,0,0,0,0,1,0,0,0]:
-        zd.append([img,choice])
-    elif choice == [0,0,0,0,0,0,1,0,0]:
-        sq.append([img,choice])
-    elif choice == [0,0,0,0,0,0,0,1,0]:
-        sd.append([img,choice])
-    elif choice == [0,0,0,0,0,0,0,0,1]:
-        nk.append([img,choice])
-
-# equilize everything
-z = z[:len(zq)][:len(zd)]
-# s ignored for training
-# q = q[:len(z)] # ignored for training
-# d = d[:len(z)] # ignored for training
-zq = zq[:len(z)]
-zd = zd[:len(z)]
-# sq ignored
-# sd ignored
-# nk = nk[:len(z)] # ignored for training
-
-final_data = z + zq + zd + nk
-shuffle(final_data)
-
-np.save("training_data/"+training_dataset+"-balanced.npy", final_data)
+# Execute the script  
+if __name__ == "__main__":  
+    main()
