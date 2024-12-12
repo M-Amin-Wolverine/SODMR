@@ -8,3 +8,5 @@ tensorflow
 tflearn
 pywin32
 pynput
+os
+...
