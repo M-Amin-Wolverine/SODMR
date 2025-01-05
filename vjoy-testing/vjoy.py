@@ -9,7 +9,7 @@
 # SOURCE: https://gist.github.com/Flandan/fdadd7046afee83822fcff003ab47087#file-vjoy-py
 
 import ctypes
-import struct, time
+import struct, time 
 import numpy as np
 
 CONST_DLL_VJOY = "D:\\devel\\gta\\vjoy-testing\\vJoyInterface.dll"
