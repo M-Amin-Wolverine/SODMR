@@ -9,7 +9,7 @@ time.sleep(1)
 
 
 print("sending axes", flush=True)
-
+ 
 # valueX, valueY between -1.0 and 1.0
 # scale between 0 and 16000
 scale = 10000.0
