@@ -8,7 +8,7 @@ from tflearn.layers.normalization import local_response_normalization
 from tflearn.layers.merge_ops import merge
 
 
-
+ 
 
 def resnext(width, height, frame_count, lr, output=9, model_name = 'sentnet_color.model'):
     net = input_data(shape=[None, width, height, 3], name='input')
