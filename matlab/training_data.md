@@ -10,7 +10,7 @@ More on [https://github.com/slevin48/gta](https://github.com/slevin48/gta)
 ```matlab:Code
 training_dataset = "training_data-2021-02-12-3";
 sequence = 1;
-training_data_0 = imread("screenshots\"+training_dataset+"\screenshots"+string(sequence)+"\training_data_0.jpg");
+training_data_0 = imread("screenshots\"+training_dataset+"\screenshots"+string(sequence)+"\training_data_0.jpg"); 
 imshow(training_data_0)
 ```
 
