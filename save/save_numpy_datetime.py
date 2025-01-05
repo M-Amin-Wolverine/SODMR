@@ -6,7 +6,7 @@ import pandas as pd
 training_dataset = "training_data-2021-02-12-4"
 
 l = os.listdir("training_data/"+training_dataset)
-n = len(l)
+n = len(l) 
 
 os.mkdir("timeline/"+training_dataset)
 
