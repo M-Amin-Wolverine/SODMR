@@ -8,7 +8,7 @@ import cv2
 def load_image():
     training_data = np.load("training_data/training_data-0.npy",allow_pickle=True)
     return training_data
-
+ 
 st.sidebar.title("GTAV dataset")
 images = load_image()
 id = st.sidebar.slider("Frame",0,len(images)-1,0)
