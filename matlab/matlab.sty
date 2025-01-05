@@ -1,6 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{matlab}
+\ProvidesPackage{matlab}[2025/01/05 Enhanced MATLAB code style]
 
+% Required packages
 \RequirePackage{verbatim}
 \RequirePackage{fancyvrb}
 \RequirePackage{alltt}
@@ -9,56 +10,56 @@
 \RequirePackage{hyperref}
 \RequirePackage{color}
 
+% Define colors
+\definecolor{output}{gray}{0.4}
 
+% Max width for content
 \newcommand{\maxwidth}[1]{\ifdim\linewidth>#1 #1\else\linewidth\fi}
 \newcommand{\mlcell}[1]{{\color{output}\verbatim@font#1}}
 
-\definecolor{output}{gray}{0.4}
-
 % Unicode character conversions
-\DeclareUnicodeCharacter{B0}{\ensuremath{^\circ}}
-\DeclareUnicodeCharacter{21B5}{\ensuremath{\hookleftarrow}}
+\DeclareUnicodeCharacter{B0}{\ensuremath{^\circ}} % Degree symbol
+\DeclareUnicodeCharacter{21B5}{\ensuremath{\hookleftarrow}} % Return arrow
 
 % Paragraph indentation
 \setlength{\parindent}{0pt}
 
 % Hyperlink style
 \hypersetup{
-colorlinks=true,
-linkcolor=blue,
-urlcolor=blue
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue
 }
 
-
-% environment styles for MATLAB code and output
-\mdfdefinestyle{matlabcode}{%
-  outerlinewidth=.5pt,
-  linecolor=gray!20!white,
-  roundcorner=2pt,
-  innertopmargin=.5\baselineskip,
-  innerbottommargin=.5\baselineskip,
-  innerleftmargin=1em,
-  backgroundcolor=gray!10!white
+% Environment styles for MATLAB code and output
+\mdfdefinestyle{matlabcode}{
+    outerlinewidth=0.5pt,
+    linecolor=gray!20!white,
+    roundcorner=2pt,
+    innertopmargin=0.5\baselineskip,
+    innerbottommargin=0.5\baselineskip,
+    innerleftmargin=1em,
+    backgroundcolor=gray!10!white
 }
 
+% Define environments
 \newenvironment{matlabcode}{\verbatim}{\endverbatim}
 \surroundwithmdframed[style=matlabcode]{matlabcode}
 
-\newenvironment{matlaboutput}{%
-  \Verbatim[xleftmargin=1.25em, formatcom=\color{output}]%
+\newenvironment{matlaboutput}{
+    \Verbatim[xleftmargin=1.25em, formatcom=\color{output}]
 }{\endVerbatim}
 
-\newenvironment{matlabsymbolicoutput}{%
-  \list{}{\leftmargin=1.25em\relax}%
-  \item\relax%
-  \color{output}\verbatim@font%
+\newenvironment{matlabsymbolicoutput}{
+    \list{}{\leftmargin=1.25em}
+    \item\relax
+    \color{output}\verbatim@font
 }{\endlist}
 
-\newenvironment{matlabtableoutput}[1]{%
-  {\color{output}%
-  \hspace*{1.25em}#1}%
+\newenvironment{matlabtableoutput}[1]{
+    {\color{output}
+    \hspace*{1.25em}#1}
 }{}
-
 
 % Table of Contents style
 \newcounter{multititle}
@@ -67,38 +68,38 @@ urlcolor=blue
 \newcounter{hastoc}
 \newcommand{\matlabhastoc}{\setcounter{hastoc}{1}}
 
+% Title and heading commands
 \newcommand{\matlabtitle}[1]{
-\ifnum\value{multititle}>0
-  \ifnum\value{hastoc}>0
-    \addcontentsline{toc}{section}{#1}
-  \fi
-\fi
-\section*{#1}
+    \ifnum\value{multititle}>0
+        \ifnum\value{hastoc}>0
+            \addcontentsline{toc}{section}{#1}
+        \fi
+    \fi
+    \section*{#1}
 }
 
 \newcommand{\matlabheading}[1]{
-\ifnum\value{hastoc}>0
-  \addcontentsline{toc}{subsection}{#1}
-\fi
-\subsection*{#1}
+    \ifnum\value{hastoc}>0
+        \addcontentsline{toc}{subsection}{#1}
+    \fi
+    \subsection*{#1}
 }
 
 \newcommand{\matlabheadingtwo}[1]{
-\ifnum\value{hastoc}>0
-  \addcontentsline{toc}{subsubsection}{#1}
-\fi
-\subsubsection*{#1}
+    \ifnum\value{hastoc}>0
+        \addcontentsline{toc}{subsubsection}{#1}
+    \fi
+    \subsubsection*{#1}
 }
 
 \newcommand{\matlabheadingthree}[1]{
-\ifnum\value{hastoc}>0
-  \addcontentsline{toc}{paragraph}{#1}
-\fi
-\paragraph*{#1}
+    \ifnum\value{hastoc}>0
+        \addcontentsline{toc}{paragraph}{#1}
+    \fi
+    \paragraph*{#1}
 }
 
 \newcommand{\matlabtableofcontents}[1]{
-\renewcommand{\contentsname}{#1}
-\tableofcontents
+    \renewcommand{\contentsname}{#1}
+    \tableofcontents
 }
- 
