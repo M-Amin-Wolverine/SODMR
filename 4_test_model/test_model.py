@@ -12,7 +12,7 @@ from getkeys import key_check
 import random
 
 training_dataset = "training_data_2021-02-16-1"
-
+ 
 WIDTH = 160
 HEIGHT = 120
 LR = 1e-3
