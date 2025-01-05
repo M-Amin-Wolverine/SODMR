@@ -10,7 +10,7 @@ import random
 from statistics import mode,mean
 import numpy as np
 from vjoy import vJoy, ultimate_release
-
+ 
 vj = vJoy()
 
 GAME_WIDTH = 1920
