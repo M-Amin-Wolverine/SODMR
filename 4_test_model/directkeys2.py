@@ -1,4 +1,4 @@
-# directkeys2.py
+# directkeysV2.py
 
 from pynput.keyboard import Key, Controller
 
