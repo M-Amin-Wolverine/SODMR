@@ -72,8 +72,12 @@ def ReleaseKey(hexKeyCode):
     x = Input( ctypes.c_ulong(1), ii_ )
     ctypes.windll.user32.SendInput(1, ctypes.pointer(x), ctypes.sizeof(x))
 
-# if __name__ == '__main__':
-    # PressKey(0x11)
-    # time.sleep(1)
-    # ReleaseKey(0x11)
-    # time.sleep(1)
+if __name__ == '__main__':
+    try:
+        while True:
+            PressKey(W)  # Press the W key
+            time.sleep(1)  # Hold down for 1 second
+            ReleaseKey(W)  # Release the W key
+            time.sleep(1)  # Wait for 1 second before the next press
+    except KeyboardInterrupt:
+        print("Program terminated.")
