@@ -6,7 +6,7 @@ def straight():
 ##    if random.randrange(4) == 2:
 ##        ReleaseKey(Z)
 ##    else:
-    PressKey(Z)
+    PressKey(Z) 
     ReleaseKey(Q)
     ReleaseKey(D)
 
