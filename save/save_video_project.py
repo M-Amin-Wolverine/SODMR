@@ -6,7 +6,7 @@ img_array = []
 for i in range(500):
     filename = 'screenshots/training_data_'+str(i)+'.jpg'
     img = cv2.imread(filename)
-    # height, width, layers = img.shape
+    # height, width, layers = img.shape 
     # size = (width,height)
     img_array.append(img)
  
