@@ -9,7 +9,7 @@ def read_controller(XMLfile):
 
     state0 = states[0].getchildren()
     headers = [i.tag for i in state0]
-
+ 
     rows = []
     for i in states:
         state_i = i.getchildren()
