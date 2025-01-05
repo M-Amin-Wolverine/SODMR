@@ -10,7 +10,7 @@ training_dataset = "training_data-2021-02-14-2"
 
 l = os.listdir("training_data/"+training_dataset)
 n = len(l)
-
+ 
 os.mkdir("screenshots/"+training_dataset)
 
 for k in range(n):
